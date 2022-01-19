@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/thejacob00/ffsl_manager#readme",
   "dependencies": {
+    "dotenv": "^11.0.0",
     "mariadb": "^2.5.5",
     "nodemon": "^2.0.15"
   }
