@@ -2,12 +2,12 @@ const express = require('express');
 const pool = require('../helpers/database');
 const router = express.Router();
 
-router.get('/:id', async function(req, res){
+router.post('', async function(req, res){
     try{
-        const sqlQuery = 'SELECT first_name, last_name FROM owners WHERE id=?';
-        const rows = await pool.query(sqlQuery, req.params.id);
+        const sqlQuery = 'SELECT first_name, last_name FROM owners WHERE username=? AND password=password(?)';
+        const rows = await pool.query(sqlQuery, [req.body.username, req.body.password]);
         if (rows.length > 0) {
-            res.status(200).json(rows[0]);  // Should never be more than one anyways
+            res.status(200).json(rows[0]);  // Should never be more than one
           }
           else {
             res.status(404);

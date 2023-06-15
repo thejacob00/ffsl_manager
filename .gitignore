@@ -3,3 +3,4 @@ node_modules/
 .*.swn
 .*.swo
 scrapers/*.html
+nodesource_setup.sh
