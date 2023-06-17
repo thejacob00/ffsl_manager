@@ -69,10 +69,17 @@ module.exports = {
           player_id: {
             type: Sequelize.DataTypes.BIGINT,
           },
-          on_cap_space: {
-            type: Sequelize.DataTypes.BOOLEAN,
-            defaultValue: true,
-            allowNull: false
+          add_to_roster: {
+            type: Sequelize.DataTypes.BIGINT,
+            allowNull: true,
+          },
+          remove_from_roster: {
+            type: Sequelize.DataTypes.BIGINT,
+            allowNull: true,
+          },
+          remove_from_cap: {
+            type: Sequelize.DataTypes.BIGINT,
+            allowNull: true,
           },
           year_id: {
             type: Sequelize.DataTypes.BIGINT,

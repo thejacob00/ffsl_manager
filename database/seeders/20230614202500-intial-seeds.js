@@ -74,12 +74,6 @@ module.exports = {
           email: 'one@unknown.com',
           password: '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19',
         }], { transaction: t }),
-        queryInterface.bulkInsert('User', [{
-          id: 1,
-          username: 'John Henry',
-          email: 'one@unknown.com',
-          password: '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19',
-        }], { transaction: t }),
         queryInterface.bulkInsert('Team', [{
           id: 1,
           owner_user_id: 1,
@@ -140,6 +134,42 @@ module.exports = {
           owner_user_id: 12,
           name: 'Team Chris Thomas',
         }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2022,
+          name: '2022',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2023,
+          name: '2023',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2024,
+          name: '2024',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2025,
+          name: '2025',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2026,
+          name: '2026',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2027,
+          name: '2027',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2028,
+          name: '2028',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2029,
+          name: '2029',
+        }], { transaction: t }),
+        queryInterface.bulkInsert('Year', [{
+          id: 2030,
+          name: '2030',
+        }], { transaction: t }),
       ]);
     });
   },
@@ -148,6 +178,10 @@ module.exports = {
       return Promise.all([
         queryInterface.bulkDelete('User', null, { transaction: t }),
         queryInterface.bulkDelete('Team', null, { transaction: t }),
+        queryInterface.bulkDelete('Player', null, { transaction: t }),
+        queryInterface.bulkDelete('Year', null, { transaction: t }),
+        queryInterface.bulkDelete('Transaction', null, { transaction: t }),
+        queryInterface.bulkDelete('TransactionItem', null, { transaction: t }),
       ]);
     });
   }

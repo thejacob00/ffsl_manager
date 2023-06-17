@@ -22,9 +22,11 @@ app.get('/', (request, response) => {
 });
 
 const userRouter = require('./routes/user');
-const loginRouter = require('./routes/login');
 app.use('/user', userRouter);
+const loginRouter = require('./routes/login');
 app.use('/login', loginRouter);
+const rosterRouter = require('./routes/roster');
+app.use('/roster', rosterRouter);
 
 /** Start listening */
 app.listen(PORT, () => {
