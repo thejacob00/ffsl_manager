@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "ffsl",
+    "password": "foo",
+    "database": "ffsldb",
+    "host": "localhost",
+    "dialect": "mariadb"
+  }
+}

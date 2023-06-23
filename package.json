@@ -21,7 +21,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^11.0.0",
+    "express": "^4.17.2",
     "mariadb": "^2.5.5",
+    "mysql2": "^3.3.5",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "sequelize": "^6.32.0",
+    "sequelize-cli": "^6.6.1"
   }
 }
