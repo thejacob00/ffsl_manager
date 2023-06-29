@@ -13,6 +13,11 @@ module.exports = {
           username: Sequelize.DataTypes.STRING,
           email: Sequelize.DataTypes.STRING,
           password: Sequelize.DataTypes.STRING,
+          is_admin: {
+            type: Sequelize.DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+          },
         }, { transaction: t }),
         queryInterface.createTable('Team', {
           id: {
@@ -70,15 +75,24 @@ module.exports = {
             type: Sequelize.DataTypes.BIGINT,
           },
           add_to_roster: {
-            type: Sequelize.DataTypes.BIGINT,
+            type: Sequelize.DataTypes.BOOLEAN,
             allowNull: true,
+          },
+          post_season_only: {
+            type: Sequelize.DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false,
           },
           remove_from_roster: {
-            type: Sequelize.DataTypes.BIGINT,
+            type: Sequelize.DataTypes.BOOLEAN,
             allowNull: true,
           },
-          remove_from_cap: {
-            type: Sequelize.DataTypes.BIGINT,
+          franchise_tag: {
+            type: Sequelize.DataTypes.BOOLEAN,
+            allowNull: true,
+          },
+          multi_year_deal: {
+            type: Sequelize.DataTypes.BOOLEAN,
             allowNull: true,
           },
           year_id: {

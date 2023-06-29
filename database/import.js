@@ -5,6 +5,7 @@ const readline = require('readline');
 const events = require('events');
 require('dotenv').config();
 const pool = require('../helpers/database');
+const transaction = require('../models/transaction');
 
 const debug = true;
 
@@ -22,18 +23,6 @@ get_team_id_by_owner_name = async (owner_name) => {
 insert_player = async (player_name) => {
   const sqlQuery = 'INSERT INTO Player (name) VALUES (?)';
   const rows = await pool.query(sqlQuery, player_name);
-  return rows.insertId;
-};
-
-create_transaction = async (description) => {
-  const sqlQuery = 'INSERT INTO Transaction (is_finalized, description) VALUES (?, ?)';
-  const rows = await pool.query(sqlQuery, [true, description]);
-  return rows.insertId;
-};
-
-create_transaction_item = async (transaction_id, team_id, player_id, year_id, add_to_roster, remove_from_roster, remove_from_cap, money) => {
-  const sqlQuery = 'INSERT INTO TransactionItem (transaction_id, team_id, player_id, year_id, add_to_roster, remove_from_roster, remove_from_cap, money) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-  const rows = await pool.query(sqlQuery, [transaction_id, team_id, player_id, year_id, add_to_roster, remove_from_roster, remove_from_cap, money]);
   return rows.insertId;
 };
 
@@ -87,32 +76,32 @@ main = async () => {
     const description = data[7];
     const team_id = await get_team_id_by_owner_name(owner_name);
     const player_id = await insert_player(player_name);
-    const transaction_id = await create_transaction('Initial Seeds: "' + player_name + '" - ' + description);
+    const transaction_id = await transaction.create_transaction('Initial Seeds: "' + player_name + '" - ' + description);
     switch (contract_type) {
+//transaction.create_transaction_item = async (transaction_id, team_id, player_id, year_id, add_to_roster, post_season_only, remove_from_roster, franchise_tag, multi_year_deal, money) => {
+      case 'Pink':
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2022, true, false, null, false, false, money_owed);
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2022, null, true, true, false, false, 0);
+        break;
       case 'N/A':
       case 'Neon':
       case 'Purple':
-        await create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster, false, false, money_owed);
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster || null, contract_type === 'Purple', null, false, false, money_owed);
         break;
       case 'Yellow':
-        await create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster, false, false, money_owed);
-        await create_transaction_item(transaction_id, team_id, player_id, 2023, on_roster, false, false, cap_figure);
-        // TODO mark as can't be keepered
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster || null, false, null, true, false, money_owed);
         break;
       case 'Orange':
-        await create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster, false, false, money_owed);
-        await create_transaction_item(transaction_id, team_id, player_id, 2023, on_roster, false, false, plus_ten_percent(cap_figure));
-        await create_transaction_item(transaction_id, team_id, player_id, 2024, on_roster, false, false, plus_ten_percent(plus_ten_percent(cap_figure)));
-        // TODO mark as can't be keepered
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster || null, false, null, false, false, money_owed);
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2023, on_roster || null, false, null, false, true, plus_ten_percent(cap_figure));
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2024, on_roster || null, false, null, false, true, plus_ten_percent(plus_ten_percent(cap_figure)));
         break;
       case 'Blue':
-        await create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster, false, false, money_owed);
-        await create_transaction_item(transaction_id, team_id, player_id, 2023, on_roster, false, false, plus_ten_percent(money_owed));
-        // TODO mark as can't be keepered
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster || null, false, null, false, true, money_owed);
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2023, on_roster || null, false, null, false, true, plus_ten_percent(money_owed));
         break;
       case 'Forest':
-        await create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster, false, false, money_owed);
-        // TODO mark as can't be keepered
+        await transaction.create_transaction_item(transaction_id, team_id, player_id, 2022, on_roster || null, false, null, false, true, money_owed);
         break;
       default:
         console.log('Unkown contract type: ' + contract_type);

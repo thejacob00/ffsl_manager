@@ -18,6 +18,8 @@ Backend for the FFSL -- the world's greatest fantasy football league.
 
 ### Redo All
 `npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && ./import.js`
+#### Tested moves
+`curl -XPOST localhost:8000/transition/end_post_season`
 
 ## Database config files
 Because Ryan sucks/is lazy you might need to have db configured in three different places

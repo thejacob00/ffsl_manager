@@ -67,6 +67,7 @@ module.exports = {
           username: 'Jacob Simmons',
           email: 'one@unknown.com',
           password: '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19',
+          is_admin: true,
         }], { transaction: t }),
         queryInterface.bulkInsert('User', [{
           id: 12,

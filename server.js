@@ -27,6 +27,8 @@ const loginRouter = require('./routes/login');
 app.use('/login', loginRouter);
 const rosterRouter = require('./routes/roster');
 app.use('/roster', rosterRouter);
+const transitionRouter = require('./routes/transition');
+app.use('/transition', transitionRouter);
 
 /** Start listening */
 app.listen(PORT, () => {
